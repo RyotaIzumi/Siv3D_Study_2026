@@ -10,6 +10,7 @@ void Main()
 
 	// フォントの宣言
 	FontAsset::Register(U"Title", 60, Typeface::Regular);
+	FontAsset::Register(U"Guide", 24, Typeface::Regular);
 
 	// シーン管理クラスのインスタンスを生成
 	App app;

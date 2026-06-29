@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "../GameObject/Player.h"
+
 // シーン変更時のフェードイン・アウトの時間
 static const Duration TRANSITION_DURATION = 0.50s;
 
@@ -24,6 +26,8 @@ public:
 
 class InGame : public App::Scene {
 private:
+	Player m_player;
+
 public:
 	InGame(const InitData& data);
 
