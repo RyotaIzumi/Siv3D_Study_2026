@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 
 // 初期位置と、プレイヤー用の円形HitBoxを設定する
 Player::Player(const Vec2& pos)
