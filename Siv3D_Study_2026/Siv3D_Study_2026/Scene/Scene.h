@@ -9,11 +9,9 @@ enum class SceneType {
 	IN_GAME
 };
 
-using App = SceneManager<SceneType>;
-
 // ----- 各シーンのクラス ----- //
 
-class Title : public App::Scene {
+class Title : public SceneManager<SceneType>::Scene {
 private:
 public:
 	Title(const InitData& data);
@@ -22,7 +20,7 @@ public:
 	void draw() const override;
 };
 
-class InGame : public App::Scene {
+class InGame : public SceneManager<SceneType>::Scene {
 private:
 public:
 	InGame(const InitData& data);
