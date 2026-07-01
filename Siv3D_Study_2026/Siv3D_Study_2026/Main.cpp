@@ -1,8 +1,6 @@
 ﻿#include <Siv3D.hpp> // Siv3D v0.6.16
 #include "Scene/Scene.h"
 
-using App = SceneManager<SceneType>;
-
 void Main()
 {
 
@@ -13,7 +11,7 @@ void Main()
 	FontAsset::Register(U"Guide", 24, Typeface::Regular);
 
 	// シーン管理クラスのインスタンスを生成
-	App app;
+	SceneManager<SceneType> app;
 	app.add<Title>(SceneType::Title);
 	app.add<InGame>(SceneType::IN_GAME);
 	app.init(SceneType::Title, 0s);
