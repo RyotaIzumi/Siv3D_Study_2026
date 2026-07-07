@@ -26,5 +26,5 @@ void InGame::draw() const {
 	m_player.draw();
 
 	// プレイヤーの操作方法を画面左上に表示する
-	FontAsset(U"Guide")(U"Move: Arrow keys / WASD").draw(20, 20, Palette::Black);
+	FontAsset(U"Guide")(U"Move: Arrow keys / WASD   Shot: Z").draw(20, 20, Palette::Black);
 }
