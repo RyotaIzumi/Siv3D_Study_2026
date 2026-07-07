@@ -144,6 +144,9 @@
 	<ClCompile Include="GameObject\Player.cpp">
 	  <Filter>Source Files</Filter>
 	</ClCompile>
+	<ClCompile Include="GameObject\PlayerBullet.cpp">
+	  <Filter>Source Files</Filter>
+	</ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -825,6 +828,9 @@
 	  <Filter>Header Files</Filter>
 	</ClInclude>
 	<ClInclude Include="GameObject\Player.h">
+	  <Filter>Header Files</Filter>
+	</ClInclude>
+	<ClInclude Include="GameObject\PlayerBullet.h">
 	  <Filter>Header Files</Filter>
 	</ClInclude>
     <ClInclude Include="stdafx.h">

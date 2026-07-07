@@ -27,6 +27,8 @@ void Player::update() {
 
 	setPos(m_pos + direction * MoveSpeed * Scene::DeltaTime());
 	keepInsideScreen();
+	shoot();
+	updateBullets();
 }
 
 // Clampでx座標とy座標を画面内の範囲に収める
@@ -36,8 +38,31 @@ void Player::keepInsideScreen() {
 	setPos(Vec2{ x, y });
 }
 
+// Zキーを押した瞬間に、プレイヤーの上端から弾を1発発射する
+void Player::shoot() {
+	if (KeyZ.down()) {
+		m_bullets.emplace_back(m_pos + Vec2{ 0.0, -HitBoxRadius });
+	}
+}
+
+// すべての弾を更新し、画面上端を越えた弾を配列から取り除く
+void Player::updateBullets() {
+	for (auto& bullet : m_bullets) {
+		bullet.update();
+	}
+
+	m_bullets.remove_if([](const PlayerBullet& bullet) {
+		return bullet.isOutsideScreen();
+	});
+}
+
 // 三角形と円を組み合わせ、上向きの宇宙船として描く
 void Player::draw() const {
+	// 弾を先に描くことで、プレイヤーを弾より手前に表示する
+	for (const auto& bullet : m_bullets) {
+		bullet.draw();
+	}
+
 	Triangle{
 		m_pos + Vec2{ 0, -18 },
 		m_pos + Vec2{ 16, 16 },

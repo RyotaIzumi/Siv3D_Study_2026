@@ -117,6 +117,7 @@
   <ItemGroup>
 	<ClCompile Include="GameObject\HitBox.cpp" />
 	<ClCompile Include="GameObject\Player.cpp" />
+	<ClCompile Include="GameObject\PlayerBullet.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scene\InGame.cpp" />
     <ClCompile Include="Scene\Title.cpp" />
@@ -332,6 +333,7 @@
 	<ClInclude Include="GameObject\GameObject.h" />
 	<ClInclude Include="GameObject\HitBox.h" />
 	<ClInclude Include="GameObject\Player.h" />
+	<ClInclude Include="GameObject\PlayerBullet.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
