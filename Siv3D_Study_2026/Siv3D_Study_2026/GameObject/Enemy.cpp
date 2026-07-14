@@ -26,7 +26,7 @@ void Enemy::draw() const {
 
 	RectF{ barPos, barWidth, barHeight }.draw(ColorF{ 0.2 });
 	RectF{ barPos, barWidth * hpRate, barHeight }
-		.draw(ColorF{ 0.2, 0.9, 0.3 });
+	.draw(ColorF{ 0.2, 0.9, 0.3 });
 }
 
 // HPが0より小さくならないようにしながらダメージを与える

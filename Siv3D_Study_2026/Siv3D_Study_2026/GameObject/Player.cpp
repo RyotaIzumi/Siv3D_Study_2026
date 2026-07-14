@@ -86,3 +86,19 @@ void Player::draw() const {
 	}.draw(ColorF{ 0.2, 0.55, 1.0 });
 	Circle{ m_pos, 7 }.draw(ColorF{ 0.8, 0.95, 1.0 });
 }
+
+int32 Player::countBulletHits(const GameObject& target) {
+	int32 hitCount = 0;
+
+	m_bullets.remove_if([&](const PlayerBullet& bullet) {
+		if (bullet.intersects(target)) {
+			++hitCount;
+			return true;
+		}
+
+		return false;
+	});
+
+	return hitCount;
+}
+
