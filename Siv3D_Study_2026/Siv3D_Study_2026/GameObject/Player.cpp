@@ -6,6 +6,22 @@ Player::Player(const Vec2& pos)
 		std::make_shared<CircleHitBox>(pos, HitBoxRadius) } {
 }
 
+// 対象と重なった弾を配列から取り除き、ダメージに使う命中数を返す
+int32 Player::countBulletHits(const GameObject& target) {
+	int32 hitCount = 0;
+
+	m_bullets.remove_if([&](const PlayerBullet& bullet) {
+		if (bullet.intersects(target)) {
+			++hitCount;
+			return true;
+		}
+
+		return false;
+	});
+
+	return hitCount;
+}
+
 // 矢印キーまたはWASDキーから、縦横それぞれの移動方向を求める
 Vec2 Player::getMoveDirection() const {
 	Vec2 direction{ 0.0, 0.0 };

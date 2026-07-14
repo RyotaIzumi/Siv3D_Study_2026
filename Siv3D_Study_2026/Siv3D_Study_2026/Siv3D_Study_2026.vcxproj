@@ -115,6 +115,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+	<ClCompile Include="GameObject\Enemy.cpp" />
 	<ClCompile Include="GameObject\HitBox.cpp" />
 	<ClCompile Include="GameObject\Player.cpp" />
 	<ClCompile Include="GameObject\PlayerBullet.cpp" />
@@ -330,6 +331,7 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+	<ClInclude Include="GameObject\Enemy.h" />
 	<ClInclude Include="GameObject\GameObject.h" />
 	<ClInclude Include="GameObject\HitBox.h" />
 	<ClInclude Include="GameObject\Player.h" />
