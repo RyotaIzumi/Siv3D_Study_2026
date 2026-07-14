@@ -6,13 +6,17 @@ class Enemy : public GameObject {
 private:
 	static constexpr double HitBoxRadius = 45.0;
 	static constexpr int32 MaxHP = 10;
+	static constexpr double MoveRange = 220.0;
+	static constexpr double MoveSpeed = 2.0;
 
+	Vec2 m_startPos;
+	double m_moveTime = 0.0;
 	int32 m_hp = MaxHP;
 
 public:
 	Enemy(const Vec2& pos);
 
-	// 今回の敵は移動しないため、更新処理は空にする
+	// 敵を左右に往復移動させる
 	void update() override;
 
 	// 敵本体と現在のHPを表すHPバーを描く

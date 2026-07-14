@@ -3,11 +3,20 @@
 // 初期位置と、敵用の円形HitBoxを設定する
 Enemy::Enemy(const Vec2& pos)
 	: GameObject{ ObjectType::Enemy, pos,
-		std::make_shared<CircleHitBox>(pos, HitBoxRadius) } {
+		std::make_shared<CircleHitBox>(pos, HitBoxRadius) }
+	, m_startPos{ pos } {
 }
 
-// 今回の敵は画面上部から動かないため、処理は何も書かない
+// sinの値を使って、初期位置を中心に左右へなめらかに往復移動させる
 void Enemy::update() {
+	if (isDead()) {
+		return;
+	}
+
+	m_moveTime += Scene::DeltaTime();
+
+	const double moveX = Math::Sin(m_moveTime * MoveSpeed) * MoveRange;
+	setPos(m_startPos + Vec2{ moveX, 0.0 });
 }
 
 // 敵を赤い円で描き、その上に残りHPを表すバーを描く
