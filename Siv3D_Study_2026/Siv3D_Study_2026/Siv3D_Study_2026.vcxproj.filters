@@ -138,6 +138,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+	<ClCompile Include="GameObject\Enemy.cpp">
+	  <Filter>Source Files</Filter>
+	</ClCompile>
 	<ClCompile Include="GameObject\HitBox.cpp">
 	  <Filter>Source Files</Filter>
 	</ClCompile>
@@ -821,6 +824,9 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
+	<ClInclude Include="GameObject\Enemy.h">
+	  <Filter>Header Files</Filter>
+	</ClInclude>
 	<ClInclude Include="GameObject\GameObject.h">
 	  <Filter>Header Files</Filter>
 	</ClInclude>

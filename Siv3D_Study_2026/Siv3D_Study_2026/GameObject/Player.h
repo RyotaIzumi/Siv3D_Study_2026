@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "PlayerBullet.h"
 
@@ -20,6 +20,8 @@ private:
 
 public:
 	Player(const Vec2& pos);
+	// 指定したオブジェクトに当たった弾を削除し、命中した数を返す
+	int32 countBulletHits(const GameObject& target);
 	// キー入力を読み取り、プレイヤーを移動する
 	void update() override;
 	// プレイヤーを簡単な宇宙船の形で描く
