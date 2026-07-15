@@ -1,16 +1,11 @@
-<!--
-タイトル案:
-Siv3Dでシューティングゲームを作る Part 4 - 敵と弾の当たり判定を作る
-
-タグ案:
-C++, Siv3D, ゲーム制作, 初心者, シューティングゲーム
--->
-
 # 目次
-
+https://qiita.com/Ryota123/private/ad363a4778e02b4035a2
+***
 <!-- Qiita投稿時に目次リンクを追加する -->
 
 前回は、Zキーでプレイヤーの弾を発射する処理を作りました。
+
+https://qiita.com/Ryota123/items/f5b4315de03f6a9b9686
 
 <!-- Part 3公開後、ここへリンクを追加する -->
 
@@ -32,24 +27,9 @@ C++, Siv3D, ゲーム制作, 初心者, シューティングゲーム
 - 弾1発につき敵のHPを1減らす
 - HPが0になると敵を消し、撃破メッセージを表示する
 
-> 完成画面の画像をここに追加予定
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3821471/09e628cc-1f14-4599-aa91-2cedd20e0c0c.png)
 
 今回の敵は、ボスの土台として画面上部に固定します。敵の移動や攻撃は次回以降に追加します。
-
-## 今回の課題の進め方
-
-第3回と同じように、課題を書くたびにゲームを実行し、成功したことを画面で確認できる構成にします。
-
-最初に、敵の生成、更新、描画、当たり判定を呼ぶところまでを「動作確認用の土台」として用意します。各関数の中身は、コンパイルできる穴埋め状態にしておきます。
-
-その後、次の順番で関数を完成させます。
-
-1. `Enemy::draw()`を作り、敵とHPバーが表示されることを確認する
-2. `Player::countBulletHits()`を作り、命中した弾が消えることを確認する
-3. `Enemy::damage()`を作り、命中するたびにHPバーが減ることを確認する
-4. `Enemy::isDead()`を作り、HPが0になると敵が消えることを確認する
-
-それぞれの課題で画面の変化が異なるため、どの処理まで正しく動いているか判断しやすくなります。
 
 ## Enemy用のファイルを追加する
 
@@ -58,20 +38,8 @@ C++, Siv3D, ゲーム制作, 初心者, シューティングゲーム
 - Enemy.h
 - Enemy.cpp
 
-```text
-GameObject/
-├── Enemy.h           // 今回追加
-├── Enemy.cpp         // 今回追加
-├── GameObject.h
-├── HitBox.h
-├── HitBox.cpp
-├── Player.h
-├── Player.cpp
-├── PlayerBullet.h
-└── PlayerBullet.cpp
-```
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3821471/035c3966-0bba-4ba5-ad3c-fff39aab597a.png)
 
-Visual Studioからファイルを作成すれば、通常はプロジェクトにも追加されます。エクスプローラーなどから作成した場合は、「既存の項目の追加」を使ってプロジェクトへ登録してください。
 
 ## 動作確認用のEnemyを用意する
 
@@ -208,7 +176,7 @@ void Enemy::update() {
 
 この関数は、指定されたゲームオブジェクトと重なった弾を削除し、命中した弾の数を返します。
 
-`Enemy`だけを受け取るのではなく、親クラスの`GameObject`を受け取る形にしています。今後、別の敵を追加した場合も同じ関数を利用できます。
+`Enemy`だけを受け取るのではなく、親クラスの`GameObject`を受け取る形にしています。この勉強会では増やす予定はありませんが、別の敵を作りたい場合でも、この関数を利用できます。
 
 `Player.cpp`へは、課題2で完成させる穴埋めコードを追加します。
 
@@ -224,8 +192,6 @@ int32 Player::countBulletHits(const GameObject& target) {
 ## InGameへ敵と当たり判定を追加する
 
 続いて、ゲームシーンへ敵を追加します。
-
-ここは課題ではありません。各課題の結果をすぐ確認するための土台として、全員で同じコードを実装します。
 
 ### Scene.hへEnemyを追加する
 
@@ -254,14 +220,14 @@ int32 Player::countBulletHits(const GameObject& target) {
  	: IScene(data)
 -	, m_player{ Scene::Center() } {
 +	, m_player{ Scene::Center() }
-+	, m_enemy{ Vec2{ Scene::Center().x, 100.0 } } {
++	, m_enemy{ Vec2{ Scene::Center().x, 150.0 } } {
  }
 ```
 
-敵のx座標には画面中央、y座標には`100.0`を指定しています。
+敵のx座標には画面中央、y座標には`150.0`を指定しています。
 
 ```cpp
-Vec2{ Scene::Center().x, 100.0 }
+Vec2{ Scene::Center().x, 150.0 }
 ```
 
 これにより、敵が画面上部の中央に配置されます。
@@ -284,7 +250,7 @@ Vec2{ Scene::Center().x, 100.0 }
 
 ```cpp
 // 生存中の敵に当たった弾を数え、1発につき1ダメージを与える
-if (not m_enemy.isDead()) {
+if (!m_enemy.isDead()) {
 	const int32 hitCount = m_player.countBulletHits(m_enemy);
 	m_enemy.damage(hitCount);
 }
@@ -349,7 +315,7 @@ if (m_enemy.isDead()) {
 
 最初の課題では、`Enemy::draw()`を完成させます。
 
-敵本体は赤い円として描き、白目と黒目を追加します。その上には、現在HPを表す緑色のHPバーを描きます。
+敵本体は赤い円として描きます。その上には、現在HPを表す緑色のHPバーを描きます。
 
 最初に、敵が倒されていたら何も描かずに関数を終了します。
 
@@ -361,45 +327,45 @@ if (isDead()) {
 
 今は`isDead()`が必ず`false`なので、敵は必ず描画されます。
 
-次の条件を満たす`draw()`を書いてください。
+次に、円の描画や、hpバーの大きさ定義なども追加します。
 
 - `m_pos`を中心に、半径`HitBoxRadius`の赤い円を描く
-- 敵の顔として白目と黒目を描く
 - HPバーの幅は`120.0`、高さは`10.0`にする
 - 現在HPを最大HPで割り、HPの割合を求める
 - HPの割合に応じて、緑色のバーの幅を変える
 
 ```cpp
 void Enemy::draw() const {
-	// ここに敵とHPバーを描く処理を書く
+	if (isDead()) {
+		return;
+	}
+
+	Circle{ m_pos, HitBoxRadius }.draw(ColorF{ 0.9, 0.2, 0.2 });
+
+	const double barWidth = 120.0;
+	const double barHeight = 10.0;
+	const double hpRate = static_cast<double>(m_hp) / MaxHP;
+	const Vec2 barPos{ m_pos.x - barWidth / 2.0,
+		m_pos.y - HitBoxRadius - 20.0 };
+
+    // hpバーを構成する図形描画 //
 }
 ```
 
+あとはhpバーを構成する図形を描画してあげるだけです。ここを書いてみましょう！
+長方形の描画には、`Rect`や`RectF`が使えます。
+
+https://siv3d.github.io/ja-jp/tutorial/rect/
+
 <details>
-<summary>ヒント1：HPの割合</summary>
+<summary>ヒント</summary>
 
-現在HPを最大HPで割ると、HPの割合を`0.0`から`1.0`で表せます。
-
-```cpp
-const double hpRate = static_cast<double>(m_hp) / MaxHP;
-```
-
-`m_hp`は整数なので、`static_cast<double>()`を使って小数へ変換してから割り算します。
+必要な長方形は2つあります。
+- 長さの変わらないバー(黒)
+- hpによって幅が変化するバー(緑)
 
 </details>
 
-<details>
-<summary>ヒント2：HPバーの幅</summary>
-
-緑色のバーの幅は、最大幅へHPの割合を掛けます。
-
-```cpp
-barWidth * hpRate
-```
-
-HPが10なら`120.0`、HPが5なら`60.0`、HPが0なら`0.0`になります。
-
-</details>
 
 <details>
 <summary>解答例</summary>
@@ -411,10 +377,6 @@ void Enemy::draw() const {
 	}
 
 	Circle{ m_pos, HitBoxRadius }.draw(ColorF{ 0.9, 0.2, 0.2 });
-	Circle{ m_pos + Vec2{ -15, -8 }, 6 }.draw(Palette::White);
-	Circle{ m_pos + Vec2{ 15, -8 }, 6 }.draw(Palette::White);
-	Circle{ m_pos + Vec2{ -15, -8 }, 3 }.draw(Palette::Black);
-	Circle{ m_pos + Vec2{ 15, -8 }, 3 }.draw(Palette::Black);
 
 	const double barWidth = 120.0;
 	const double barHeight = 10.0;
@@ -464,14 +426,19 @@ bool intersects(const GameObject& other) const {
 4. 命中した弾は`true`、命中していない弾は`false`を返す
 5. 最後に`hitCount`を返す
 
+途中まで埋めるとこうなります。
+
 ```cpp
 int32 Player::countBulletHits(const GameObject& target) {
-	// ここに当たり判定を書く
+	int32 hitCount = 0;
+
+	m_bullets.remove_if([&](const PlayerBullet& bullet) {
+        // ここからhitCountを変更できる
+	});
+
+    // ???を返す //
 }
 ```
-
-<details>
-<summary>ヒント1：ラムダ式の[&]</summary>
 
 `remove_if()`のラムダ式から、外側にある`hitCount`を変更する必要があります。
 
@@ -481,12 +448,10 @@ m_bullets.remove_if([&](const PlayerBullet& bullet) {
 });
 ```
 
-`[&]`は、外側の変数を参照として利用することを表します。
-
-</details>
+`[&]`は、外側の変数(ここでは`countBulletHits`)を参照として利用することを表します。
 
 <details>
-<summary>ヒント2：命中したときの処理</summary>
+<summary>ヒント：命中したときの処理</summary>
 
 ```cpp
 if (bullet.intersects(target)) {
@@ -552,18 +517,10 @@ void Enemy::damage(int32 amount) {
 }
 ```
 
-<details>
-<summary>ヒント</summary>
+やり方はいろいろありますが、便利な関数があるので紹介します。
+`Max(a, b)`は、2つの値のうち大きい方を返します。ぜひ使ってみましょう。
 
-`Max(a, b)`は、2つの値のうち大きい方を返します。
-
-```cpp
-Max(0, m_hp - amount)
-```
-
-ダメージ後のHPがマイナスになる場合でも、`0`が選ばれます。
-
-</details>
+https://siv3d.github.io/ja-jp/tutorial2/utility/
 
 <details>
 <summary>解答例</summary>
@@ -878,18 +835,10 @@ m_enemy.damage(hitCount * 2);
 - 現在HPに応じてHPバーの幅を変更した
 - HPが0になると敵を描画せず、撃破メッセージを表示した
 
-今回も、課題ごとに実行結果を確認できるよう、最初に動作確認用の土台を用意しました。
+## 次回
 
-- 課題1の後：敵とHPバーが表示される
-- 課題2の後：命中した弾が消える
-- 課題3の後：命中するたびにHPバーが減る
-- 課題4の後：HPが0になると敵が消える
-
-当たり判定、ダメージ、撃破を別々の段階で確認することで、どの処理に問題があるか判断しやすくなります。
-
-次回は、敵を動かしたり、敵から弾を発射したりして、ボスらしい動きを追加する予定です。
+次回は、敵を動かしたり、敵から弾を発射したりする予定です。
 
 ## 参考
 
 - [Siv3D公式サイト](https://siv3d.github.io/ja-jp/)
-- [Siv3Dチュートリアル：図形の交差判定](https://siv3d.github.io/ja-jp/tutorial3/geometry2d/)

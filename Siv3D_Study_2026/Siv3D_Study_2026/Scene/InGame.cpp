@@ -7,8 +7,24 @@ InGame::InGame(const InitData& data)
 	, m_enemy{ Vec2{ Scene::Center().x, 150.0 } } {
 }
 
+// プレイヤーと敵を作り直し、ゲームオーバー状態を解除する
+void InGame::resetGame() {
+	m_player = Player{ Scene::Center() };
+	m_enemy = Enemy{ Vec2{ Scene::Center().x, 150.0 } };
+	m_isGameOver = false;
+}
+
 // インゲームシーンの更新処理
 void InGame::update() {
+	// GameOver中はゲームを止め、Rキーで最初からやり直せるようにする
+	if (m_isGameOver) {
+		if (KeyR.down()) {
+			resetGame();
+		}
+
+		return;
+	}
+
 	// プレイヤーのキー入力と移動を更新する
 	m_player.update();
 	m_enemy.update();
@@ -17,7 +33,11 @@ void InGame::update() {
 	if (!m_enemy.isDead()) {
 		const int32 hitCount = m_player.countBulletHits(m_enemy);
 		m_enemy.damage(hitCount);
-		m_enemy.countBulletHits(m_player);
+
+		// 敵弾が1発でもプレイヤーに当たったらGameOverにする
+		if (0 < m_enemy.countBulletHits(m_player)) {
+			m_isGameOver = true;
+		}
 	}
 
 
@@ -40,6 +60,14 @@ void InGame::draw() const {
 
 	// プレイヤーの操作方法を画面左上に表示する
 	FontAsset(U"Guide")(U"Move: Arrow keys / WASD   Shot: Z").draw(20, 20, Palette::Black);
+
+	// GameOver中は画面中央にメッセージを表示する
+	if (m_isGameOver) {
+		FontAsset(U"Title")(U"Game Over")
+			.drawAt(Scene::Center().x, Scene::Center().y - 30, Palette::Black);
+		FontAsset(U"Guide")(U"Press R to Restart")
+			.drawAt(Scene::Center().x, Scene::Center().y + 30, Palette::Black);
+	}
 
 	// 敵のHPが0になったら撃破メッセージを表示する
 	if (m_enemy.isDead()) {

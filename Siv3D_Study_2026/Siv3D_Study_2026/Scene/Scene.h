@@ -27,6 +27,10 @@ class InGame : public SceneManager<SceneType>::Scene {
 private:
 	Player m_player;
 	Enemy m_enemy;
+	bool m_isGameOver = false;
+
+	// プレイヤー・敵・ゲーム状態を初期状態に戻す
+	void resetGame();
 
 public:
 	InGame(const InitData& data);
