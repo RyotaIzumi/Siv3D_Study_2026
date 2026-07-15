@@ -1,5 +1,7 @@
 ﻿#include <Siv3D.hpp> // Siv3D v0.6.16
 #include "Scene/Scene.h"
+#include "Texture/TextureAsset.h"
+#include "Audio/AudioAsset.h"
 
 void Main()
 {
@@ -9,6 +11,15 @@ void Main()
 	// フォントの宣言
 	FontAsset::Register(U"Title", 60, Typeface::Regular);
 	FontAsset::Register(U"Guide", 24, Typeface::Regular);
+
+	registerTextures();
+	registerTexturesSync();
+	loadTexturesSync();
+
+	Sound::registerBGMs();
+	Sound::registerSEs();
+	Sound::registerAudiosSync();
+	Sound::loadAudiosSync();
 
 	// シーン管理クラスのインスタンスを生成
 	SceneManager<SceneType> app;
