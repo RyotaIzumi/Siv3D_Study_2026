@@ -1,5 +1,7 @@
 ﻿#include "Player.h"
 
+#include "../Audio/AudioAsset.h"
+
 // 初期位置と、プレイヤー用の円形HitBoxを設定する
 Player::Player(const Vec2& pos)
 	: GameObject{ ObjectType::Player, pos,
@@ -42,6 +44,7 @@ void Player::keepInsideScreen() {
 void Player::shoot() {
 	if (KeyZ.down()) {
 		m_bullets.emplace_back(m_pos + Vec2{ 0.0, -HitBoxRadius });
+		AudioAsset(Sound::SHOOT).playOneShot();
 	}
 }
 

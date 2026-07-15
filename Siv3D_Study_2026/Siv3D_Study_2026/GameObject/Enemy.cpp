@@ -70,7 +70,8 @@ void Enemy::draw() const {
 		return;
 	}
 
-	Circle{ m_pos, HitBoxRadius }.draw(ColorF{ 0.9, 0.2, 0.2 });
+	const ScopedRenderStates2D rs{ SamplerState::ClampNearest };
+	TextureAsset(U"sprCherry").scaled(4.0).drawAt(m_pos);
 
 	const double barWidth = 120.0;
 	const double barHeight = 10.0;

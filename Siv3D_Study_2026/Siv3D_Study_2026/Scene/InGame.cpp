@@ -1,10 +1,14 @@
 ﻿#include "Scene.h"
 
+#include "../Audio/AudioAsset.h"
+
 // インゲームシーンのコンストラクタ
 InGame::InGame(const InitData& data)
 	: IScene(data)
 	, m_player{ Scene::Center() }
 	, m_enemy{ Vec2{ Scene::Center().x, 150.0 } } {
+	AudioAsset(Sound::MAIN).stop();
+	AudioAsset(Sound::MAIN).play();
 }
 
 // プレイヤーと敵を作り直し、ゲームオーバー状態を解除する
@@ -12,6 +16,8 @@ void InGame::resetGame() {
 	m_player = Player{ Scene::Center() };
 	m_enemy = Enemy{ Vec2{ Scene::Center().x, 150.0 } };
 	m_isGameOver = false;
+	AudioAsset(Sound::MAIN).stop();
+	AudioAsset(Sound::MAIN).play();
 }
 
 // インゲームシーンの更新処理
@@ -37,12 +43,15 @@ void InGame::update() {
 		// 敵弾が1発でもプレイヤーに当たったらGameOverにする
 		if (0 < m_enemy.countBulletHits(m_player)) {
 			m_isGameOver = true;
+			AudioAsset(Sound::MAIN).stop();
+			AudioAsset(Sound::DEATH).playOneShot();
 		}
 	}
 
 
 	// Qキーが押されたら、タイトルシーンに遷移する
 	if (KeyQ.down()) {
+		AudioAsset(Sound::MAIN).stop();
 		changeScene(SceneType::Title, TRANSITION_DURATION);
 	}
 }
