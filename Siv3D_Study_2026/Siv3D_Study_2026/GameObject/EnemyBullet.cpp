@@ -14,7 +14,7 @@ void EnemyBullet::update() {
 
 // 敵弾を紫色の円で描く
 void EnemyBullet::draw() const {
-	Circle{ m_pos, HitBoxRadius }.draw(ColorF{ 0.85, 0.25, 1.0 });
+	TextureAsset(U"sprCherryWhite").scaled(0.8).drawAt(m_pos);
 }
 
 // 少し余裕を持たせて、画面から十分離れた弾を削除対象にする

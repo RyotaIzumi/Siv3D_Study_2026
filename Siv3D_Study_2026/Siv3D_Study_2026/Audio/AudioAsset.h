@@ -11,6 +11,8 @@
 
 		static const String SHOOT = U"sndShoot";
 		static const String SHOOT_PATH = SE_PATH + SHOOT + U".wav";
+		static const String DEATH = U"sndDeath";
+		static const String DEATH_PATH = SE_PATH + DEATH + U".wav";
 		
 		void registerBGMs();
 		void registerSEs();

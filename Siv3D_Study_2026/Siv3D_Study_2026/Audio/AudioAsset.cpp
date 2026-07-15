@@ -13,12 +13,13 @@
 
 		//BGMを登録する
 		void registerBGMs() {
-			registerAudio(MAIN, Path_MAIN, Loop::No);
+			registerAudio(MAIN, Path_MAIN, Loop::Yes);
 		}
 		
 		//SEを登録する
 		void registerSEs() {
 			registerAudio(SHOOT, SHOOT_PATH);
+			registerAudio(DEATH, DEATH_PATH);
 		}
 
 		/**
