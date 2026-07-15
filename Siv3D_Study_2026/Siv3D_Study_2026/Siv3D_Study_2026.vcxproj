@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
 	<ClCompile Include="GameObject\Enemy.cpp" />
+	<ClCompile Include="GameObject\EnemyBullet.cpp" />
 	<ClCompile Include="GameObject\HitBox.cpp" />
 	<ClCompile Include="GameObject\Player.cpp" />
 	<ClCompile Include="GameObject\PlayerBullet.cpp" />
@@ -332,6 +333,7 @@
   </ItemGroup>
   <ItemGroup>
 	<ClInclude Include="GameObject\Enemy.h" />
+	<ClInclude Include="GameObject\EnemyBullet.h" />
 	<ClInclude Include="GameObject\GameObject.h" />
 	<ClInclude Include="GameObject\HitBox.h" />
 	<ClInclude Include="GameObject\Player.h" />
