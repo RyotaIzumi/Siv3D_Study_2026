@@ -141,6 +141,9 @@
 	<ClCompile Include="GameObject\Enemy.cpp">
 	  <Filter>Source Files</Filter>
 	</ClCompile>
+	<ClCompile Include="GameObject\EnemyBullet.cpp">
+	  <Filter>Source Files</Filter>
+	</ClCompile>
 	<ClCompile Include="GameObject\HitBox.cpp">
 	  <Filter>Source Files</Filter>
 	</ClCompile>
@@ -825,6 +828,9 @@
   </ItemGroup>
   <ItemGroup>
 	<ClInclude Include="GameObject\Enemy.h">
+	  <Filter>Header Files</Filter>
+	</ClInclude>
+	<ClInclude Include="GameObject\EnemyBullet.h">
 	  <Filter>Header Files</Filter>
 	</ClInclude>
 	<ClInclude Include="GameObject\GameObject.h">

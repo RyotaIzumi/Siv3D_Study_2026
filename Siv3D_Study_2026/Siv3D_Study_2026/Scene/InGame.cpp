@@ -17,6 +17,7 @@ void InGame::update() {
 	if (!m_enemy.isDead()) {
 		const int32 hitCount = m_player.countBulletHits(m_enemy);
 		m_enemy.damage(hitCount);
+		m_enemy.countBulletHits(m_player);
 	}
 
 
@@ -36,7 +37,6 @@ void InGame::draw() const {
 
 	// 更新された座標にプレイヤーを描画する
 	m_player.draw();
-	m_enemy.draw();
 
 	// プレイヤーの操作方法を画面左上に表示する
 	FontAsset(U"Guide")(U"Move: Arrow keys / WASD   Shot: Z").draw(20, 20, Palette::Black);
